@@ -54,24 +54,31 @@ public class DatabaseConnection {
 			System.out.println("inserisci un id che vedi");
 			int userId = sc.nextInt();
 			
-			String sql2 = "SELECT DISTINCT l.`language` "
-			        + "FROM countries c "
-			        + "JOIN country_stats cs ON c.country_id = cs.country_id "
-			        + "JOIN country_languages cl ON c.country_id = cl.country_id "
-			        + "JOIN languages l ON l.language_id = cl.language_id "
-			        + "WHERE c.country_id = " + userId;
+			String sql2 = "select DISTINCT l.`language` "
+			        + "from countries c "
+			        + "join country_stats cs "
+			        + "on c.country_id = cs.country_id "
+			        + "join country_languages cl "
+			        + "on c.country_id = cl.country_id "
+			        + "join languages l "
+			        + "on l.language_id = cl.language_id "
+			        + "where c.country_id = " + userId;
 
-			String sql3 = "SELECT DISTINCT cs.`year`, cs.population, cs.gdp "
-			        + "FROM countries c "
-			        + "JOIN country_stats cs ON c.country_id = cs.country_id "
-			        + "JOIN country_languages cl ON c.country_id = cl.country_id "
-			        + "JOIN languages l ON l.language_id = cl.language_id "
-			        + "WHERE c.country_id = " + userId + " "
-			        + "AND cs.year = ("
-			        + "  SELECT MAX(cs2.year) "
-			        + "  FROM country_stats cs2 "
-			        + "  JOIN country_languages cl2 ON cs2.country_id = cl2.country_id "
-			        + "  WHERE cl2.language_id = cl.language_id"
+			String sql3 = "select DISTINCT cs.`year`, cs.population, cs.gdp "
+			        + "from countries c "
+			        + "join country_stats cs "
+			        + "on c.country_id = cs.country_id "
+			        + "join country_languages cl "
+			        + "on c.country_id = cl.country_id "
+			        + "join languages l "
+			        + "on l.language_id = cl.language_id "
+			        + "where c.country_id = " + userId + " "
+			        + "and cs.year = ("
+			        + "  select MAX(cs2.year) "
+			        + "  from country_stats cs2 "
+			        + "  join country_languages cl2 "
+			        + "	 on cs2.country_id = cl2.country_id "
+			        + "  where cl2.language_id = cl.language_id"
 			        + ")";
 
 			
