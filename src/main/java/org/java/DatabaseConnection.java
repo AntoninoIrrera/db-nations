@@ -14,13 +14,13 @@ public class DatabaseConnection {
 		String user = "root";
 		String password = "root";
 		
-		Connection con = null;
 		
-		try{
+		
+		try(Connection con = DriverManager.getConnection(url, user, password)){
 			
 			Scanner sc = new Scanner(System.in);
 			
-			con = DriverManager.getConnection(url, user, password);
+			
 			
 			System.out.println("inserisci nome nazione da cercare");
 			String userName = sc.nextLine();
@@ -108,15 +108,6 @@ public class DatabaseConnection {
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
-		}finally {
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 		}
 		
 		
